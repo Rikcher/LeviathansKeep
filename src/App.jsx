@@ -3,10 +3,10 @@ import '/src/styles/css/App.css'
 import { Application } from '@splinetool/runtime';
 
 function App() {
-  const canvasRef = useRef(null); // Create a ref to reference the canvas element
-  const [text, setText] = useState("not changed")
+  const canvasRef = useRef(null); // Create a ref to reference the canvas element 
   const [backgroundActive, setBackgroundActive] = useState(false)
   const [sceneLoaed, setSceneLoaded] = useState(false)
+  const [areaName, setAreaName] = useState("default")
 
   useEffect(() => {
     const loadApp = async () => {
@@ -16,15 +16,12 @@ function App() {
           await app.load('https://prod.spline.design/gsBeBMWmNSKzvVr9/scene.splinecode');
           setSceneLoaded(true)
           app.addEventListener('mouseDown', (e) => {
-            if (e.target.name === "1_place") {
-              setText("First Place")
-            } else if (e.target.name === "2_place") {
-              setText("Secon Place")
-            } else if (e.target.name === "3_place") {
-              setText("Third Place")
-            } else if (e.target.name === "Trigger_to_zoom_in") {
+            if (e.target.name === "Trigger_to_zoom_in") {
               setBackgroundActive(true)
             }
+          });
+          app.addEventListener('mouseHover', (e) => {
+            setAreaName(e.target.name)
           });
         } catch (error) {
           console.error("Failed to load the Spline scene:", error);
@@ -42,6 +39,9 @@ function App() {
         <div className="landing_page_content">
           <h1 className={`hero_title ${backgroundActive ? "hide" : ""}`}>Leviathan<span className='apostroph'>'</span>s Keep</h1>
           <p className={`hero_subtitle ${backgroundActive ? "hide" : ""}`}>humanity<span className='apostroph'>'</span>s last sight</p>
+        </div>
+        <div className="areas_info">
+          <p className="area_name">{areaName}</p>
         </div>
         <canvas style={{opacity: sceneLoaed ? "1" : "0"}} ref={canvasRef} id="canvas3d" />
       </div>
