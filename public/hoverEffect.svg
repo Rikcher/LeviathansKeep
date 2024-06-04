@@ -1,0 +1,18 @@
+<svg width="236" height="101" viewBox="0 0 236 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="232.439" y="18" width="4" height="23.2489" transform="rotate(45 232.439 18)" fill="white"/>
+<rect x="4" y="87" width="10" height="10" fill="white"/>
+<path d="M17 89.5V84H1V100H4H17V94.5" stroke="#AFAFAF" stroke-width="2"/>
+<path d="M224 26.4997L199.5 1.99976H165.5L75.4998 91.9999H14" stroke="#AFAFAF" stroke-width="2"/>
+<path d="M76 93L77 92L75.5 91H75V93H76Z" fill="white"/>
+<path d="M75.5 90.5L77 92L82.5 86.5L81 85L75.5 90.5Z" fill="white"/>
+<path d="M66.5 91L66.5 93H74.5V91H66.5Z" fill="white"/>
+<path d="M77 92L75.5 90.5L81 85L82.5 86.5L77 92ZM77 92L76 93H75V91H75.5L77 92ZM66.5 91L66.5 93H74.5V91H66.5Z" stroke="white"/>
+<path d="M166.5 3V1H165L164 2L165.5 3.5L166 3H166.5Z" fill="white"/>
+<path d="M166.5 3H175V1H166.5V3Z" fill="white"/>
+<path d="M166.5 3H175V1H166.5M166.5 3V1M166.5 3H166L165.5 3.5L164 2L165 1H166.5" stroke="white"/>
+<path d="M165.5 3.5L159.5 9.5L158 8L164 2L165.5 3.5Z" fill="white" stroke="white"/>
+<path d="M198.5 1V3H199L199.5 3.5L201 2L200 1H198.5Z" fill="white"/>
+<path d="M199.5 3.5L205.5 9.5L207 8L201 2L199.5 3.5Z" fill="white"/>
+<path d="M198.5 3V1H190.5V3H198.5Z" fill="white"/>
+<path d="M198.5 3V1M198.5 3H190.5V1H198.5M198.5 3H199L199.5 3.5M198.5 1H200L201 2M199.5 3.5L205.5 9.5L207 8L201 2M199.5 3.5L201 2" stroke="white"/>
+</svg>
