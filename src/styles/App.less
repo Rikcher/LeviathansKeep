@@ -1,10 +1,9 @@
 // out: "./css/App.css", compress: true, sourceMap: true
 
-.App {
+#planetInteraction {
     position: relative;
     width: 100%;
     height: 100vh;
-    overflow: hidden;
 }
 
 .glitch-wrapper {
@@ -275,7 +274,7 @@
     top: 0;
     width: 130%;
     height: 130vh;
-    background-image: url(/SiteBackground.png);
+    background-image: url(/planetInteraction/SiteBackground.png);
     background-size: cover;
     background-position: center;
     position: absolute;
@@ -469,7 +468,7 @@
             line-height: 23px;
         }
         .movingLine {
-            mask: url('/movingLine.svg');
+            mask: url('/planetInteraction/movingLine.svg');
             width: 42px;
             height: 225px;
             position: absolute;
@@ -506,7 +505,7 @@
             position: absolute;
             left: 45px;
             top: 51px;
-            mask: url('/mask.svg'); 
+            mask: url('/planetInteraction/mask.svg'); 
             display: inline-block;
             overflow: hidden; /* Ensure content doesn't overflow */
             width: 314px; /* Adjust as needed */
@@ -518,7 +517,7 @@
             position: absolute;
             left: 45px;
             top: 51px;
-            mask: url('/loopingAnimation.svg'); 
+            mask: url('/planetInteraction/loopingAnimation.svg'); 
             overflow: hidden; /* Ensure content doesn't overflow */
             width: 314px; /* Adjust as needed */
             height: 468px; /* Adjust as needed */
@@ -753,3 +752,264 @@
 #canvas3d.show {
     cursor: pointer !important;
 }
+
+.transitionEffect {
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 10;
+    .part {
+        position: absolute;
+        width: 25vw;
+        height: 100vh;
+        background-image: url('/backgroundPattern.png');
+        background-repeat: repeat;
+        background-size: 400px;
+        transform: translateY(100vh); /* Default state: below viewport */
+    }
+    .part1 {
+        left: 0;
+    }
+    .part2 {
+        left: 25vw;
+    }
+    .part3 {
+        left: 50vw;
+    }
+    .part4 {
+        left: 75vw;
+    }
+}
+
+.transitionEffect.animate .part1 {
+    animation: slideInOut 2s;
+    animation-delay: 0s;
+}
+
+.transitionEffect.animate .part2 {
+    animation: slideInOut 2s;
+    animation-delay: 0.1s;
+}
+
+.transitionEffect.animate .part3 {
+    animation: slideInOut 2s;
+    animation-delay: 0.2s;
+}
+
+.transitionEffect.animate .part4 {
+    animation: slideInOut 2s;
+    animation-delay: 0.3s;
+}
+
+@keyframes slideInOut {
+    0% {
+        transform: translateY(100vh); /* Start below the viewport */
+    }
+    12.5%, 37.5% {
+        transform: translateY(0); /* Fully visible */
+    }
+    70%, 100% {
+        transform: translateY(100vh); /* Slide out of the viewport */
+    }
+}
+
+
+#individualArea {
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    position: relative;
+    .goBackButton {
+        position: absolute;
+        top: 67px;
+        right: 807px;
+        cursor: pointer;
+        .learnMoreTextWrapper, .learnMoreTextSlideWrapper {
+            width: 242.5px;
+            height: 68px;
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            #learnMoreButtonText {
+                font-family: "Orbitron", sans-serif;
+                font-weight: bold;
+                font-size: 25px;
+                color: white;
+            }
+        }
+        .buttonSlide {
+            z-index: 2;
+            position: absolute;
+            top: 6.5px;
+            left: 7px;
+            width: 0;
+            overflow: hidden;
+            transition: width 0.4s ease;
+            .learnMoreTextSlideWrapper {
+                top: -2px;
+                left: -4px;
+                #learnMoreButtonTextSlide {
+                    font-family: "Orbitron", sans-serif;
+                    font-weight: bold;
+                    font-size: 25px;
+                    color: black;
+                }
+            }
+        }
+    }
+    .goBackButton:hover { 
+        .buttonSlide  {
+            width: 237px;
+        }
+    }
+    .cubesMask {
+        mask: url('/individualArea/cubesMask.svg');
+        background-color: #AFAFAF;
+        position: absolute;
+        width: 441px;
+        height: 16px;
+        top: 97px;
+        left: 767px;
+        overflow: hidden; /* Ensure the child doesn't extend outside */
+        pointer-events: none; /* Allows clicks to go through */
+        .cubesAnimation {
+            background-color: white;
+            width: 240px;
+            height: 16px;
+            position: relative; /* Use relative positioning for smoother animation */
+            left: 50%; /* Center initially */
+            transform: translateX(-50%); /* Centering adjustment */
+            animation: grow 5s linear infinite; /* Define the animation */
+        }
+        @keyframes grow {
+            from { width: 290px; }
+            to { width: 460px; } /* Match the parent's width */
+        }
+    }
+    .firstImage {
+        position: absolute;
+        top: 38px;
+        left: 40px;
+        .firstImageMask {
+            mask: url('/individualArea/firstImageMask.svg');
+            width: 551px;
+            height: 821px;
+            position: relative;
+            top: 6px;
+            left: 6px;
+            overflow: hidden;
+        }
+        .firstImageOverlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    }
+    .secondImage {
+        position: absolute;
+        top: 210px;
+        left: 642px;
+        cursor: pointer;
+        .secondImageMask {
+            mask: url('/individualArea/secondImageMask.svg');
+            width: 356px;
+            height: 656px;
+            position: relative;
+            overflow: hidden;
+        }
+        .secondImageBorder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 3;
+        }
+        .secondImageOverlay {
+            z-index: 2;
+            position: absolute;
+            top: 5px;
+            left: 10px;
+            width: 349px;
+            height: 651px;
+            mask: url('individualArea/secondImageOverlay.svg');
+            background-color: white;
+            opacity: 70%;
+        }
+    }
+    .secondImage:hover .secondImageOverlay {
+        opacity: 1;
+    }
+    .thirdImage {
+        position: absolute;
+        top: 191px;
+        left: 1043px;
+        cursor: pointer;
+        .thirdImageMask {
+            mask: url('/individualArea/thirdImageMask.svg');
+            width: 358px;
+            height: 675px;
+            position: relative;
+            overflow: hidden;
+        }
+        .thirdImageBorder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 3;
+        }
+        .thirdImageOverlay {
+            z-index: 2;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            width: 354px;
+            height: 670px;
+            mask: url('individualArea/thirdImageOverlay.svg');
+            background-color: white;
+            opacity: 70%;
+        }
+    }
+    .thirdImage:hover .thirdImageOverlay {
+        opacity: 1;
+    }
+    .fourthImage {
+        position: absolute;
+        top: 75px;
+        left: 1447px;
+        cursor: pointer;
+        .fourthImageMask {
+            mask: url('/individualArea/fourthImageMask.svg');
+            width: 428px;
+            height: 788px;
+            top: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+        .fourthImageBorder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 3;
+        }
+        .fourthImageOverlay {
+            z-index: 2;
+            position: absolute;
+            top: 6px;
+            left: 5px;
+            width: 423px;
+            height: 785px;
+            mask: url('individualArea/fourthImageOverlay.svg');
+            background-color: white;
+            opacity: 70%;
+        }
+    }
+    .fourthImage:hover .fourthImageOverlay {
+        opacity: 1;
+    }
+}
+
