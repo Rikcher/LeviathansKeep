@@ -1,4 +1,4 @@
-  import { useState, useEffect, useRef, useCallback } from 'react';
+  import { useState, useEffect, useRef } from 'react';
   import '/src/styles/css/App.css';
   import { Application } from '@splinetool/runtime';
   import useTypewriter from '/src/components/useTypewriter.jsx'; // Adjust the path according to your file structure
@@ -20,6 +20,7 @@
     const [animationTriggered, setAnimationTriggered] = useState(false);
     const [selectedArea, setSelectedArea] = useState(null); // New state to track the selected area
     const [areaImages, setAreaImages] = useState({firstImage: '', secondImage: '', thirdImage: '', fourthImage: ''});
+    const [imageSwapEffect, setImageSwapEffect] = useState({state: false, imageKey: ""})
     const [transitionTriggered, setTransitionTriggered] = useState(false);
 
     const areaMappings = {
@@ -257,16 +258,18 @@
     }, [backgroundImageLoaded, fontLoaded]);
 
     const handleScroll = (id) => {
-      const element = document.getElementById(id);
-      setTimeout(() => {
-        if (element) {
-          element.scrollIntoView();
-        }
-      }, 500)
-      setTransitionTriggered(true)
-      setTimeout(() => {
-        setTransitionTriggered(false);
-      }, 1500)
+      if(selectedArea) {
+        const element = document.getElementById(id);
+        setTimeout(() => {
+          if (element) {
+            element.scrollIntoView();
+          }
+        }, 500)
+        setTransitionTriggered(true)
+        setTimeout(() => {
+          setTransitionTriggered(false);
+        }, 1600)
+      }
     };
 
     const swapImages = (clickedImageKey) => {
@@ -275,6 +278,10 @@
         const temp = updatedAreaImages.firstImage;
         updatedAreaImages.firstImage = updatedAreaImages[clickedImageKey];
         updatedAreaImages[clickedImageKey] = temp;
+        setImageSwapEffect({state: true, imageKey: clickedImageKey})
+        setTimeout(() => {
+          setImageSwapEffect(false)
+        }, 310)
         return updatedAreaImages;
       });
     };
@@ -370,21 +377,30 @@
             <div className="cubesAnimation"></div>
           </div>
           <div className="firstImage">
-            <div className="firstImageMask" style={{background: `url(${areaImages.firstImage}) center/cover no-repeat`}}></div>
+            <div className="firstImageMask" style={{background: `url(${areaImages.firstImage}) center/cover no-repeat`}}>
+              <div className={`swapEffect ${imageSwapEffect.state ? "active" : ""}`}></div>
+              <div className="informationOverlay"></div>
+            </div>
             <img src="/individualArea/firstImageOverlay.svg" alt="" className="firstImageOverlay" />
           </div>
           <div className="secondImage" onClick={() => swapImages('secondImage')}>
-            <div className="secondImageMask" style={{background: `url(${areaImages.secondImage}) center/cover no-repeat`}}></div>
+            <div className="secondImageMask" style={{background: `url(${areaImages.secondImage}) center/cover no-repeat`}}>
+              <div className={`swapEffect ${imageSwapEffect.state && imageSwapEffect.imageKey === 'secondImage' ? "active" : ""}`}></div>
+            </div>
             <img src="/individualArea/secondImageBorder.svg" alt="" className="secondImageBorder" />
             <div className="secondImageOverlay"></div>
           </div>
           <div className="thirdImage" onClick={() => swapImages('thirdImage')}>
-            <div className="thirdImageMask" style={{background: `url(${areaImages.thirdImage}) center/cover no-repeat`}}></div>
+            <div className="thirdImageMask" style={{background: `url(${areaImages.thirdImage}) center/cover no-repeat`}}>
+              <div className={`swapEffect ${imageSwapEffect.state && imageSwapEffect.imageKey === 'thirdImage' ? "active" : ""}`}></div>
+            </div>
             <img src="/individualArea/thirdImageBorder.svg" alt="" className="thirdImageBorder" />
             <div className="thirdImageOverlay"></div>
           </div>
           <div className="fourthImage" onClick={() => swapImages('fourthImage')}>
-            <div className="fourthImageMask" style={{background: `url(${areaImages.fourthImage}) center/cover no-repeat`}}></div>
+            <div className="fourthImageMask" style={{background: `url(${areaImages.fourthImage}) center/cover no-repeat`}}>
+              <div className={`swapEffect ${imageSwapEffect.state && imageSwapEffect.imageKey === 'fourthImage' ? "active" : ""}`}></div>
+            </div>
             <img src="/individualArea/fourthImageBorder.svg" alt="" className="fourthImageBorder" />
             <div className="fourthImageOverlay"></div>
           </div>
