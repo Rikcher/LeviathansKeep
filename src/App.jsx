@@ -2,7 +2,8 @@
   import '/src/styles/css/App.css';
   import { Application } from '@splinetool/runtime';
   import useTypewriter from '/src/components/useTypewriter.jsx'; // Adjust the path according to your file structure
-  import useScrambleEffect from '/src/components/useScrambleEffect.jsx'; // Adjust the path according to your file structure
+  import useScrambleEffect from '/src/components/useScrambleEffect.jsx'; // Adjust the path according to your file structure 
+  import TransitionEffect from '/src/components/TransitionEffect.jsx'
 
 
   function App() {
@@ -20,12 +21,14 @@
     const [animationTriggered, setAnimationTriggered] = useState(false);
     const [selectedArea, setSelectedArea] = useState(null); // New state to track the selected area
     const [areaImages, setAreaImages] = useState({firstImage: '', secondImage: '', thirdImage: '', fourthImage: ''});
+    const [learnMoreText, setLearnMoreText] = useState("")
     const [imageSwapEffect, setImageSwapEffect] = useState({state: false, imageKey: ""})
-    const [transitionTriggered, setTransitionTriggered] = useState(false);
+    const [showTransitionEffect, setShowTransitionEffect] = useState(false);
+    const [id, setId] = useState(null);
 
     const areaMappings = {
       Forest: {
-        text: "Nestled within Leviathan's Keep lay Greenwood, a vast expanse of verdant forest. Towering trees and lush undergrowth created a haven of biodiversity, where life flourished in abundance. Amidst the tranquil surroundings, the forest whispered secrets of ancient wisdom and timeless beauty.",
+        text: "Nestled within Leviathan's Keep, Greenwood is a vast, verdant forest. Towering trees and lush undergrowth create a haven of biodiversity with rare plants and elusive wildlife. Ancient wisdom whispers through hidden groves and crystal-clear streams, showcasing nature's timeless beauty and resilience.",
         header: "Greenwood",
         glitchImage: 'forest.jpg',
         images: {
@@ -33,10 +36,11 @@
           secondImage: '/individualArea/areas_images/Forest/secondImage.jpg',
           thirdImage: '/individualArea/areas_images/Forest/thirdImage.jpg',
           fourthImage: '/individualArea/areas_images/Forest/fourthImage.jpg'
-        }
+        },
+        learnMoreText: "Greenwood, a lush forest nestled within Leviathan's Keep, is renowned for its towering ancient trees and rich biodiversity. Home to countless species, the forest thrives with vibrant flora and fauna, including rare medicinal plants and elusive wildlife. The dense canopy provides a sanctuary for birds and arboreal creatures, while the forest floor, carpeted with moss and ferns, hosts an array of insects and small mammals. Hidden within Greenwood are ancient ruins and mystical groves, suggesting a long-lost civilization once revered this verdant haven. Streams and crystal-clear ponds dot the landscape, adding to the forest's serene and magical ambiance."
       },
       Mountainous_Desert: {
-        text: "In the heart of Leviathan's Keep, Dune Summit stood as a testament to human adaptation. Its sleek structures blended seamlessly with the rugged landscape, creating an urban oasis amidst the desert mountains. Here, amidst ancient peaks and modern marvels, civilization endured.",
+        text: "In Leviathan's Keep, Dune Summit rises as a testament to human adaptation amidst desert mountains. Sleek structures blend seamlessly with rugged landscapes, creating an urban oasis. Amidst ancient peaks and modern marvels, Dune Summit thrives as a center of civilization and technological innovation.",
         header: "Dune Summit",
         glitchImage: 'mountainDesert.jpg',
         images: {
@@ -44,10 +48,11 @@
           secondImage: '/individualArea/areas_images/Mountainous_Desert/secondImage.jpg',
           thirdImage: '/individualArea/areas_images/Mountainous_Desert/thirdImage.jpg',
           fourthImage: '/individualArea/areas_images/Mountainous_Desert/fourthImage.jpg'
-        }
+        },
+        learnMoreText: "In the heart of Leviathan's Keep, Dune Summit is a vast mountainous desert, characterized by towering sand dunes and rugged peaks. This arid expanse features dramatic rock formations sculpted by relentless winds, creating a breathtaking, otherworldly landscape. Sparse vegetation dots the terrain, adapted to the harsh climate with deep roots and hardy foliage. Despite the challenging environment, diverse wildlife, including desert foxes and hardy reptiles, thrives here. Ancient cave paintings and forgotten ruins hint at past civilizations that once called this desert home, adding a layer of historical intrigue to Dune Summit's stark and majestic beauty."
       },
       Giant_Wall: {
-        text: "Within Leviathan's Keep, Bastion Forge thrived—a testament to industrial prowess. Its entrance, a gaping void, led to a realm of mechanical wonder. Here, amidst the towering ramparts, humanity's ingenuity shaped the future, forging innovations amidst the echoes of progress and the relentless hum of machinery.",
+        text: "Within Leviathan's Keep, Bastion Forge stands as a monumental tribute to industrial mastery. Enclosed by an impregnable wall, this fortress-city houses towering smokestacks and intricate machinery. Workshops buzz with innovation, forging advancements that propel humanity forward amidst the echoes of progress.",
         header: "Bastion Forge",
         glitchImage: 'holeInWall.jpg',
         images: {
@@ -55,10 +60,11 @@
           secondImage: '/individualArea/areas_images/Giant_Wall/secondImage.jpg',
           thirdImage: '/individualArea/areas_images/Giant_Wall/thirdImage.jpg',
           fourthImage: '/individualArea/areas_images/Giant_Wall/fourthImage.jpg'
-        }
+        },
+        learnMoreText: "Within Leviathan's Keep, Bastion Forge stands as a monumental tribute to industrial mastery. Dominated by an enormous, impregnable wall, this fortress-city safeguards its mechanical marvels and technological advancements. The colossal gates open into a world where towering smokestacks and intricate machinery define the skyline. Workshops and foundries buzz with relentless activity, crafting innovations that drive humanity forward. The wall itself, a marvel of engineering, symbolizes both protection and progress, enclosing a community dedicated to invention and resilience. Amidst the constant clatter of gears and the glow of molten metal, Bastion Forge embodies the relentless spirit of human ingenuity."
       },
       Flat_Desert: {
-        text: "Within Leviathan's Keep lies Celestial Steppe, a realm where the earth meets the heavens in seamless harmony. Here, the flatlands extend to the horizon, bathed in the ethereal glow of distant stars. Amidst this celestial expanse, humanity's advanced settlements flourish, their gleaming spires reaching towards the cosmos.",
+        text: "Within Leviathan's Keep lies Celestial Steppe, where flatlands extend to the horizon under the glow of distant stars. Advanced settlements with gleaming spires rise from the arid landscape, blending with the celestial backdrop in a testament to human ingenuity reaching towards the cosmos.",
         header: "Celestial Steppe",
         glitchImage: 'flatDesert.jpg',
         images: {
@@ -66,10 +72,11 @@
           secondImage: '/individualArea/areas_images/Flat_Desert/secondImage.jpg',
           thirdImage: '/individualArea/areas_images/Flat_Desert/thirdImage.jpg',
           fourthImage: '/individualArea/areas_images/Flat_Desert/fourthImage.jpg'
-        }
+        },
+        learnMoreText: "Within Leviathan's Keep lies Celestial Steppe, a vast flat desert where the earth stretches endlessly to meet the horizon. Bathed in the ethereal glow of distant stars and the shimmering sun, this arid landscape is a blend of stark beauty and serene emptiness. Sparse vegetation clings to life amidst the sandy plains, while occasional mirages dance on the horizon. Advanced human settlements, with their gleaming spires and solar-powered domes, rise from the desert floor, blending seamlessly with the celestial backdrop. In this harmonious expanse, humanity thrives, reaching towards the cosmos while grounded in the timeless sands."
       },
       Mountains: {
-        text: "Nestled within Leviathan's Keep, Alpine Enclave was a hidden sanctuary where mankind had carved its refuge into the heart of towering peaks. Amidst rugged cliffs and cascading waterfalls, futuristic structures melded seamlessly with the natural landscape, a testament to human ingenuity amidst the grandeur of the mountains.",
+        text: "Within Leviathan's Keep, Alpine Enclave is a hidden sanctuary amidst towering peaks. Futuristic structures blend with cascading waterfalls and dense forests, offering refuge amidst mountain grandeur. Trails wind through alpine meadows, showcasing thriving wildlife in high-altitude terrain.",
         header: "Alpine Enclave",
         glitchImage: 'mountain.jpg',
         images: {
@@ -77,10 +84,11 @@
           secondImage: '/individualArea/areas_images/Mountains/secondImage.jpg',
           thirdImage: '/individualArea/areas_images/Mountains/thirdImage.jpg',
           fourthImage: '/individualArea/areas_images/Mountains/fourthImage.jpg'
-        }
+        },
+        learnMoreText: "Nestled within Leviathan's Keep, Alpine Enclave stands as a hidden sanctuary amidst towering peaks. Here, mankind has ingeniously integrated futuristic structures with the rugged natural landscape. Cascading waterfalls echo through the valleys, providing a serene backdrop to the enclave's blend of technology and nature. The enclave's architecture harmonizes with its surroundings, utilizing sustainable materials and innovative designs to minimize environmental impact. Trails wind through dense forests and alpine meadows, offering glimpses of diverse wildlife adapted to the high-altitude terrain. Alpine Enclave serves not only as a refuge but also as a testament to the harmonious coexistence of human innovation and the majestic grandeur of the mountains."
       },
       Terra_District: {
-        text: "Nestled within Leviathan's Keep, Nexus was once a bustling urban center. Now, devoid of humanity, its structures stand silent and abandoned, gradually succumbing to the passage of time.",
+        text: "Once a bustling urban center, Nexus now stands silent within Leviathan's Keep. Abandoned and reclaimed by nature, its towering skyscrapers and sprawling complexes evoke tales of a prosperous past now overgrown with vines and obscured by the passage of time.",
         header: "Nexus",
         glitchImage: 'town.jpg',
         images: {
@@ -88,10 +96,11 @@
           secondImage: '/individualArea/areas_images/Terra_District/secondImage.jpg',
           thirdImage: '/individualArea/areas_images/Terra_District/thirdImage.jpg',
           fourthImage: '/individualArea/areas_images/Terra_District/fourthImage.jpg'
-        }
+        },
+        learnMoreText: "Nestled within Leviathan's Keep, Terra District, once known as Nexus, stands as a poignant reminder of humanity's past glory. This urban center, now deserted and eerily silent, was once a bustling hub of activity and innovation. Its towering skyscrapers and sprawling complexes, now overgrown with vines and shrouded in mystery, tell stories of a bygone era. Nature has begun to reclaim what was once hers, with trees growing through cracks in pavement and wildlife finding refuge in the abandoned buildings. Terra District stands as a haunting testament to the impermanence of human endeavors and the resilience of nature reclaiming its place."
       },
       Greenvale_Remnants: {
-        text: "Edenburgh, once a prosperous town, now lies within Leviathan's Keep, consumed by nature's grasp. Streets, once bustling, now vanish beneath layers of verdant foliage, succumbing to the relentless advance of the wilderness.",
+        text: "Edenburgh, once prosperous, now lies within Leviathan's Keep as Greenvale Remnants. Streets, reclaimed by nature, vanish beneath verdant foliage amidst abandoned buildings. Echoes of past prosperity linger amidst the decay, a testament to nature's relentless reclaiming of human habitation.",
         header: "Edenburgh",
         glitchImage: 'townWithGreens.jpg',
         images: {
@@ -99,10 +108,11 @@
           secondImage: '/individualArea/areas_images/Greenvale_Remnants/secondImage.jpg',
           thirdImage: '/individualArea/areas_images/Greenvale_Remnants/thirdImage.jpg',
           fourthImage: '/individualArea/areas_images/Greenvale_Remnants/fourthImage.jpg'
-        }
+        },
+        learnMoreText: "Edenburgh, a once thriving town nestled within Leviathan's Keep, now stands as Greenvale Remnants, a haunting testament to nature's relentless reclamation. Streets that once bustled with life now lie buried beneath layers of lush foliage, reclaiming what was once paved with concrete and stone. Buildings, their facades adorned with creeping vines and moss, evoke a sense of poignant beauty amidst the decay. Amidst the overgrown ruins, echoes of past prosperity whisper through the rustling leaves, a reminder of the resilience of nature and the impermanence of human endeavors. Greenvale Remnants stands as a silent witness to the inexorable passage of time within Leviathan's Keep."
       },
       Floating_Obelisk: {
-        text: "Towering in the heart of Leviathan's Keep, the Enigma Spire perplexes all who behold it. This massive levitating structure, its composition a mystery, defies explanation amidst the desert sands. Its presence, an enigma shrouded in secrecy, stands as a silent sentinel in the vast expanse.",
+        text: "Towering in Leviathan's Keep, the Floating Obelisk mesmerizes with its massive, levitating presence amidst desert sands. Its mysterious composition defies explanation, standing as a silent sentinel and symbol of curiosity in the vast expanse.",
         header: "Enigma Spire",
         glitchImage: 'unknownStructer.jpg',
         images: {
@@ -110,10 +120,11 @@
           secondImage: '/individualArea/areas_images/Floating_Obelisk/secondImage.jpg',
           thirdImage: '/individualArea/areas_images/Floating_Obelisk/thirdImage.jpg',
           fourthImage: '/individualArea/areas_images/Floating_Obelisk/fourthImage.jpg'
-        }
+        },
+        learnMoreText: "Towering in the heart of Leviathan's Keep, the Floating Obelisk mesmerizes all who encounter it. This colossal structure hovers mysteriously above the desert sands, defying gravity with its intricate and seemingly weightless design. Its material composition remains an unsolved puzzle, resisting all attempts at analysis. The obelisk's presence evokes a sense of wonder and intrigue, its silent vigil a testament to ancient technologies or perhaps otherworldly craftsmanship. As it casts its shadow across the barren landscape, the Floating Obelisk stands as a symbol of the unknown, a beacon of curiosity amidst the vast expanse of Leviathan's Keep."
       },
       Monolith_District: {
-        text: "Rising from the misty plains of Leviathan's Keep, the Nimbus Citadel stood as a monument to brutalist architecture. Its massive structures, veiled in ethereal fog, evoked an aura of otherworldly grandeur. Within its silent halls, whispers of forgotten epochs echoed, obscured by the ever-present mist.",
+        text: "Emerging from Leviathan's Keep, Nimbus Citadel veils itself in ethereal fog, embodying a stark testament to brutalist architecture. Within its silent halls, echoes of forgotten epochs murmur softly amidst imposing concrete and steel, a blend of historical ambition and enigmatic allure.",
         header: "Nimbus Citadel",
         glitchImage: 'monolit.jpg',
         images: {
@@ -121,10 +132,11 @@
           secondImage: '/individualArea/areas_images/Monolith_District/secondImage.jpg',
           thirdImage: '/individualArea/areas_images/Monolith_District/thirdImage.jpg',
           fourthImage: '/individualArea/areas_images/Monolith_District/fourthImage.jpg'
-        }
+        },
+        learnMoreText: "Emerging from the misty plains of Leviathan's Keep, Monolith District reveals the Nimbus Citadel—a stark testament to brutalist architecture. Enshrouded in ethereal fog, its massive structures exude an otherworldly grandeur. Within these silent halls, echoes of forgotten epochs murmur softly, obscured by the perpetual mist. The citadel's imposing facades, constructed from imposing concrete and steel, stand as monuments to a bygone era's ambition and strength. Amidst the eerie atmosphere, visitors can feel the weight of history and the enigmatic allure of Monolith District, where past and present merge in a surreal tableau of architectural mastery and mysterious whispers."
       },
       Frost_Plateau: {
-        text: "In Leviathan's Keep, Snowreach Outpost stood amidst snow-covered plains. Surrounded by mountains, the flat expanse offered a canvas for human habitation. Amidst the wintry setting, settlements thrived, their presence a testament to human adaptability and resilience.",
+        text: "In Leviathan's Keep, Snowreach Outpost once thrived amidst snow-covered plains and towering mountains. Resilient settlements, testament to human adaptability, dot the serene wintry landscape, contrasting life against the challenging yet breathtaking beauty of Frost Plateau.",
         header: "Snowreach Outpost",
         glitchImage: 'snowPlato.jpg',
         images: {
@@ -132,10 +144,11 @@
           secondImage: '/individualArea/areas_images/Frost_Plateau/secondImage.jpg',
           thirdImage: '/individualArea/areas_images/Frost_Plateau/thirdImage.jpg',
           fourthImage: '/individualArea/areas_images/Frost_Plateau/fourthImage.jpg'
-        }
+        },
+        learnMoreText: "In Leviathan's Keep, Frost Plateau emerges as a starkly beautiful landscape where Snowreach Outpost once stood. This snow-covered expanse, encircled by towering mountains, provides a serene canvas for human settlement amidst the harsh wintry conditions. The outpost, a testament to human adaptability, blends harmoniously with the natural surroundings. Log cabins and sturdy structures dot the plateau, their roofs laden with snow, contrasting against the azure sky. Despite the challenging environment, life flourishes here, as resilient communities thrive amidst the solitude and breathtaking beauty of Frost Plateau, embodying the enduring spirit of human resilience in Leviathan's Keep."
       },
       Snow_Mountains: {
-        text: "Deep within the snow-capped mountains of Leviathan's Keep, the Blizzard Peak Research Facility stood as a bastion of scientific inquiry. Amidst the towering peaks and pristine snow, this facility was a beacon of innovation and discovery, where researchers delved into the mysteries of universe, seeking to unlock its secrets..",
+        text: "Deep within Leviathan's Keep's snow-capped mountains, Blizzard Peak Research Facility stands as a beacon of scientific exploration. Amidst pristine snow and rugged peaks, scientists delve into the universe's mysteries, utilizing high-tech laboratories amidst awe-inspiring natural grandeur.",
         header: "Frostpeak Station",
         glitchImage: 'snowMountains.jpg',
         images: {
@@ -143,7 +156,8 @@
           secondImage: '/individualArea/areas_images/Snow_Mountains/secondImage.jpg',
           thirdImage: '/individualArea/areas_images/Snow_Mountains/thirdImage.jpg',
           fourthImage: '/individualArea/areas_images/Snow_Mountains/fourthImage.jpg'
-        }
+        },
+        learnMoreText: "Nestled deep within the snow-capped peaks of Leviathan's Keep, Blizzard Peak Research Facility stands as a bastion of scientific exploration. Amidst the rugged terrain and pristine white snow, this facility embodies a commitment to innovation and discovery. Scientists and researchers from diverse fields converge here, drawn by the allure of unlocking the mysteries of the universe. High-tech laboratories and observatories dot the landscape, their futuristic architecture blending seamlessly with the natural grandeur of the snow mountains. Against the backdrop of towering peaks and endless vistas, Blizzard Peak Research Facility symbolizes humanity's relentless pursuit of knowledge amidst the awe-inspiring beauty of the Snow Mountains."
       },
     };
     
@@ -214,7 +228,7 @@
                       }, 3000);
 
                       setAreaImages(areaData.images);
-                      console.log(areaImages)
+                      setLearnMoreText(areaData.learnMoreText);
                     }
             
                     return areaKey; // Update the selected area
@@ -259,17 +273,9 @@
 
     const handleScroll = (id) => {
       if(selectedArea) {
-        const element = document.getElementById(id);
-        setTimeout(() => {
-          if (element) {
-            element.scrollIntoView();
-          }
-        }, 500)
-        setTransitionTriggered(true)
-        setTimeout(() => {
-          setTransitionTriggered(false);
-        }, 1600)
-      }
+        setId(id)
+        handleStartAnimation()  
+      }        
     };
 
     const swapImages = (clickedImageKey) => {
@@ -285,7 +291,18 @@
         return updatedAreaImages;
       });
     };
-    
+
+    const handleStartAnimation = () => {
+      setShowTransitionEffect(true);
+    };
+
+    const handleAnimationEnd = () => {
+      setShowTransitionEffect(false);
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView();
+      }
+    };
     
 
     return (
@@ -354,12 +371,9 @@
           </div>
           <canvas className={`${hoverActive ? "show" : ""}`} style={{ opacity: sceneLoaded ? "1" : "0"}} ref={canvasRef} id="canvas3d"/>
         </div>
-        <div className={`transitionEffect ${transitionTriggered ? "animate" : ""}`}>
-          <div className="part part1"></div>
-          <div className="part part2"></div>
-          <div className="part part3"></div>
-          <div className="part part4"></div>
-        </div>
+        {showTransitionEffect && (
+          <TransitionEffect onAnimationEnd={handleAnimationEnd} />
+        )}
         <div id='individualArea'>
           <div className="goBackButton" onClick={() => handleScroll('planetInteraction')}>
             <img draggable="false" src="/individualArea/goBackButton.svg" alt="" />
@@ -379,7 +393,9 @@
           <div className="firstImage">
             <div className="firstImageMask" style={{background: `url(${areaImages.firstImage}) center/cover no-repeat`}}>
               <div className={`swapEffect ${imageSwapEffect.state ? "active" : ""}`}></div>
-              <div className="informationOverlay"></div>
+              <div className="informationOverlay">
+                <div className="overlayText">{learnMoreText}</div>
+              </div>
             </div>
             <img src="/individualArea/firstImageOverlay.svg" alt="" className="firstImageOverlay" />
           </div>
