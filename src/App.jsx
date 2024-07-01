@@ -25,6 +25,8 @@
     const [imageSwapEffect, setImageSwapEffect] = useState({state: false, imageKey: ""})
     const [showTransitionEffect, setShowTransitionEffect] = useState(false);
     const [id, setId] = useState(null);
+    const [marginTop, setMarginTop] = useState(0);
+    const [isLargeScreen, setIsLargeScreen] = useState(false)
 
     const areaMappings = {
       Forest: {
@@ -304,28 +306,76 @@
       }
     };
     
+    useEffect(() => {
+      const updateMargin = () => {
+        const aspectRatio = 1920 / 911; // Aspect ratio of the element
+        const minWidth = 800; // Minimum width constraint
+        const maxWidth = 1920; // Maximum width constraint
+  
+        // Get the current viewport width
+        const viewportWidth = window.innerWidth;
+  
+        // Calculate the width using clamp equivalent
+        const width = Math.min(maxWidth, Math.max(minWidth, viewportWidth));
+  
+        // Calculate the height based on the aspect ratio
+        const height = width / aspectRatio;
+  
+        // Calculate the top and bottom margin
+        const margin = (window.innerHeight - height) / 2;
+  
+        setMarginTop(margin);
+
+        if(window.innerWidth > 1920) {
+          setIsLargeScreen(true)
+        } else {
+          setIsLargeScreen(false)
+        }
+      };
+  
+      // Initial call to update the margin
+      updateMargin();
+  
+      // Update margin on window resize
+      window.addEventListener('resize', updateMargin);
+      return () => window.removeEventListener('resize', updateMargin);
+    }, []);
+  
+    const interactionStyle = {
+      width: 'clamp(800px, 100vw, 1920px)', // CSS clamp function for width
+      aspectRatio: '1920 / 911', // Maintains the aspect ratio
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      margin: `${marginTop}px auto`, // Center the element vertically
+      maxHeight: '911px'
+    };
 
     return (
       <div className="App">
+        {isLargeScreen ? (
+            <div id="properScrollingLargeScreens" style={{position: "absolute", top: "0", left: "0"}}></div>
+          ) : null}
         <div ref={glitchWrapperRef} className="glitch-wrapper">
           <div className="glitch" data-glitch="LOADING...">LOADING...</div>
         </div>
-        <div id="planetInteraction" draggable="false">
-          <div className={`background ${backgroundActive ? "active" : ""}`}></div>
+        <div className={`background ${backgroundActive ? "active" : ""}`}></div>
+        <div id="planetInteraction" draggable="false" style={interactionStyle}>
           <div className="landing_page_content">
             <h1 className={`hero_title ${sceneLoaded ? "show" : ""} ${backgroundActive ? "hide" : ""}`}>Leviathan<span className='apostroph'>'</span>s Keep</h1>
             <p className={`hero_subtitle ${sceneLoaded ? "show" : ""} ${backgroundActive ? "hide" : ""}`}>humanity<span className='apostroph'>'</span>s last sight</p>
           </div>
-          <div className={`hoverEffect ${hoverActive ? "show" : ""}`}>
-            <img draggable="false" src="/planetInteraction/hoverEffect.svg" alt="" />
-            <div className="nameOfArea">
-              <img src="/planetInteraction/areaNameBox.svg" alt="" />
-              <div id="hoverTextBox">
-                <p>{areaName}</p>
+          <div className={`panelsWrapper ${backgroundActive ? "show" : ""}`}>
+            <div className={`hoverEffect ${hoverActive ? "show" : ""}`}>
+              <img draggable="false" src="/planetInteraction/hoverEffect.svg" alt="" />
+              <div className="nameOfArea">
+                <img src="/planetInteraction/areaNameBox.svg" alt="" />
+                <div id="hoverTextBox">
+                  <p>{areaName}</p>
+                </div>
               </div>
             </div>
-          </div>
-          <div className={`panelsWrapper ${backgroundActive ? "show" : ""}`}>
             <div className="leftPanel">
               <img draggable="false" src="/planetInteraction/leftPanel.svg" alt="" />
               <h2 id="leftPanelHeader" ref={scrambleRef}>{leftPanelHeader}</h2>
@@ -374,8 +424,11 @@
         {showTransitionEffect && (
           <TransitionEffect onAnimationEnd={handleAnimationEnd} />
         )}
-        <div id='individualArea'>
-          <div className="goBackButton" onClick={() => handleScroll('planetInteraction')}>
+        <div id='individualArea' style={interactionStyle}>
+          <div className="goBackButton" onClick={() => {
+            const action = isLargeScreen? "properScrollingLargeScreens" : "planetInteraction";
+            handleScroll(action);
+          }}>
             <img draggable="false" src="/individualArea/goBackButton.svg" alt="" />
             <div className="buttonSlide">
               <img src="/individualArea/buttonSlide.svg" alt="" />

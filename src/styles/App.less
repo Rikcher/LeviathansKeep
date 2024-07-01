@@ -1,5 +1,10 @@
 // out: "./css/App.css", compress: true, sourceMap: true
 
+.App {
+    // background-color: black;
+}
+
+
 #planetInteraction {
     position: relative;
     width: 100%;
@@ -29,7 +34,6 @@
     font-weight: 700;
     line-height: 1.2;
     color: #fff;
-    letter-spacing: 5px;
     animation: shift 4s ease-in-out infinite alternate;
     font-family: 'Orbitron', sans-serif;
     letter-spacing: 30px;
@@ -272,7 +276,7 @@
 .background {
     left: 0;
     top: 0;
-    width: 130%;
+    width: 130vw;
     height: 130vh;
     background-image: url(/planetInteraction/SiteBackground.png);
     background-size: cover;
@@ -283,7 +287,7 @@
 }
 
 .background.active {
-    left: -30%;
+    left: -30vw;
     top: -30vh; 
 }
 
@@ -329,7 +333,7 @@
 
 @keyframes slideInFromTop {
     0% {
-        transform: translateY(-20px);
+        transform: translateY(-4.390779363336993vh);
         opacity: 0;
     }
     100% {
@@ -340,7 +344,7 @@
 
 @keyframes slideInFromBottom {
     0% {
-        transform: translateY(20px);
+        transform: translateY(4.390779363336993vh);
         opacity: 0;
     }
     100% {
@@ -355,7 +359,7 @@
         opacity: 1;
     }
     100% {
-        transform: translateY(-20px);
+        transform: translateY(-4.390779363336993vh);
         opacity: 0;
         display: none;
     }
@@ -363,7 +367,7 @@
 
 @keyframes slideInToRight {
     0% {
-        transform: translateX(-20px);
+        transform: translateX(-4.390779363336993vh);
         opacity: 0;
     }
     100% {
@@ -382,8 +386,8 @@
 
 .hoverEffect {
     position: absolute;
-    left: 704px;
-    top: 33px;
+    left: -206px;
+    top: -48px;
     width: 0;
     overflow: hidden;
     display: flex;
@@ -450,7 +454,7 @@
         opacity: 0;
         #leftPanelHeader {
             font-family: "Audiowide", sans-serif;
-            font-size: 30px;
+            font-size: 1.875em;
             position: absolute;
             top: 58px;
             left: 55px;
@@ -460,10 +464,10 @@
         }
         #leftPanelText {
             font-family: "Orbitron", sans-serif;
-            font-size: 18px;
+            font-size: 1.125em;
             position: absolute;
-            top: 175px;
-            left: 88px;
+            top: 10.938em;
+            left: 5.5em;
             max-width: 260px;
             line-height: 23px;
         }
@@ -497,7 +501,7 @@
     .rightPanel {
         position: absolute;
         right: 0;
-        top: -4px;
+        top: -0.43907793633369924vh;
         opacity: 0;
         overflow: hidden;
         
@@ -697,7 +701,7 @@
     .learnMoreButton {
         position: absolute;
         bottom: 0;
-        right: 6px;
+        right: 0.3125vw;
         opacity: 0;
         cursor: pointer;
         .learnMoreTextWrapper, .learnMoreTextSlideWrapper {
@@ -746,7 +750,7 @@
 #canvas3d {
     transition: opacity 3s ease;
     transition-delay: 3s;
-    cursor: auto;
+    cursor: auto;   
 }
 
 #canvas3d.show {
@@ -793,7 +797,7 @@
             #learnMoreButtonText {
                 font-family: "Orbitron", sans-serif;
                 font-weight: bold;
-                font-size: 25px;
+                font-size: 1.563em;
                 color: white;
             }
         }
@@ -811,7 +815,7 @@
                 #learnMoreButtonTextSlide {
                     font-family: "Orbitron", sans-serif;
                     font-weight: bold;
-                    font-size: 25px;
+                    font-size: 1.563em;
                     color: black;
                 }
             }
@@ -876,7 +880,7 @@
             .overlayText {
                 color: white;
                 font-family: "Orbitron", sans-serif;
-                font-size: 18px;
+                font-size: 1.125em;
                 position: absolute;
                 top: 172px;
                 left: 40px;
